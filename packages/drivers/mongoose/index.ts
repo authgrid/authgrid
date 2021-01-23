@@ -11,6 +11,7 @@ export const Driver = (): IDriver => ({
 
     return user.toObject() as IUser;
   },
+  findUserById: async (id) => await User.findById(id).lean(),
   findUserByEmail: async ({ email }) =>
     await User.findOne({
       email,

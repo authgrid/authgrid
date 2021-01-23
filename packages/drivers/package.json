@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "@authcom/common": "^0.0.0",
-    "mongoose": "^5.11.13"
+    "mongoose": "^5.11.13",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/mongoose": "^5.10.3"

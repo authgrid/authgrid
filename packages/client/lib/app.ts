@@ -1,6 +1,7 @@
 import express from 'express';
 import Authcom from './index';
 import { Driver as MongooseDriver } from '@authcom/drivers/mongoose';
+import cors from 'cors';
 
 import mongoose from 'mongoose';
 
@@ -13,6 +14,13 @@ mongoose.connect(String('mongodb://localhost/authcom'), {
 const app = express();
 const port = 8080;
 
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -21,7 +29,7 @@ app.use(
   '/authcom',
   Authcom({
     driver: MongooseDriver(),
-  }),
+  })
 );
 
 app.listen(port, () => {

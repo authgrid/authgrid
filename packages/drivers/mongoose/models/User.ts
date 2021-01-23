@@ -12,11 +12,4 @@ const UserSchema: Schema = new Schema(
   },
 );
 
-UserSchema.set('toObject', {
-  transform: function (doc, ret) {
-    delete ret['password'];
-    return ret;
-  },
-});
-
 export const User = mongoose.model<IUser>('User', UserSchema);
