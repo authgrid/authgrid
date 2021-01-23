@@ -13,7 +13,7 @@ export const Driver = (): IDriver => ({
 
       return user.toObject() as IUser;
     },
-    findUserById: ({ userId }) => User.findById({ id: userId }).lean(),
+    findUserById: ({ userId }) => User.findOne({ id: userId }).lean(),
     findUserByEmail: ({ email }) =>
       User.findOne({
         email,
