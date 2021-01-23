@@ -4,6 +4,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
 import { comparePassword, encryptPassword } from '../utils/encrypt';
 import { createTokens } from '../utils/token';
+import { sendActivationEmail } from '../utils/auth.utils';
 
 export const LOCAL_ENDPOINT = '/local';
 
@@ -18,7 +19,7 @@ export default (driver: IDriver) => {
   passport.use(
     'local',
     new LocalStrategy(options, async (email, password, done) => {
-      const user = await driver.findUserByEmail({ email });
+      const user = await driver.userActions.findUserByEmail({ email });
 
       if (await comparePassword(password, user.password)) {
         const [, newRefreshToken] = await createTokens(
@@ -42,7 +43,7 @@ export default (driver: IDriver) => {
     new LocalStrategy(
       { ...options, passReqToCallback: true },
       async (req, email, password, done) => {
-        const userExists = await driver.findUserByEmail({ email });
+        const userExists = await driver.userActions.findUserByEmail({ email });
 
         if (userExists) {
           return done('Email already exists', false);
@@ -50,9 +51,17 @@ export default (driver: IDriver) => {
 
         const hashPassword = await encryptPassword(password);
 
-        const user = await driver.createUser({ email, password: hashPassword });
+        const user = await driver.userActions.createUser({
+          email,
+          password: hashPassword,
+        });
 
         delete user.password;
+
+        await sendActivationEmail({
+          email,
+          id: user.id,
+        });
 
         done(null, user);
       }
@@ -76,6 +85,7 @@ export default (driver: IDriver) => {
     (req, res) => {
       res.formatter.ok(req.user);
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (err, req, res, next) => {
       return res.formatter.badRequest(err);
     }

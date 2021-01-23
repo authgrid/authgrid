@@ -21,6 +21,7 @@
   "dependencies": {
     "@authcom/common": "^0.0.0",
     "@authcom/drivers": "^0.0.5",
+    "@sendgrid/mail": "^7.4.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",

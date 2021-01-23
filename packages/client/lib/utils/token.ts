@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
-import { DriverHolder } from '../index';
+import { DriverHolder } from './driver.utils';
 
 const { TOKEN_EXPIRES, REFRESH_TOKEN_EXPIRES } = process.env;
 
@@ -13,7 +13,7 @@ export const createTokens = async (user, SECRET, REFRESH_SECRET) => {
 
   const createRefreshToken = jwt.sign(
     {
-      user: _.pick(user, '_id'),
+      user: _.pick(user, 'id'),
     },
     REFRESH_SECRET,
     {
@@ -32,22 +32,18 @@ export const refreshTokens = async (
 ) => {
   const driver = DriverHolder.getDriver();
 
-  let userId = null;
+  let userId;
 
-  try {
-    const {
-      user: { _id },
-    } = jwt.decode(refreshToken);
-    userId = _id;
-  } catch (err) {
-    throw err;
-  }
+  const {
+    user: { id },
+  } = jwt.decode(refreshToken);
+  userId = id;
 
   if (!userId) {
     throw new Error();
   }
 
-  const user = await driver?.findUserById(userId);
+  const user = await driver?.userActions.findUserById({ userId });
 
   if (!user) {
     throw new Error();
