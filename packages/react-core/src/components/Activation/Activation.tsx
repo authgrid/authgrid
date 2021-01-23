@@ -1,12 +1,22 @@
 import React from 'react';
 
 import { Auth } from '../Auth/Auth';
-import { useActivationQuery } from '../../actions/user.actions';
 import { useQueryParams } from '../../hooks/useQueryParams';
+import { useActivationQuery } from '../../actions/auth.actions';
 
 export const Activation = () => {
   const query = useQueryParams();
-  //const { data } = useActivationQuery({ token });
-  console.log(query.get('token'));
-  return <Auth>Your account is successfully activated</Auth>;
+
+  const { isError } = useActivationQuery({
+    token: query.get('token'),
+    userId: query.get('userId'),
+  });
+
+  return (
+    <Auth>
+      {isError
+        ? 'Something went wrong while trying to activate your account'
+        : 'Your account is successfully activated'}
+    </Auth>
+  );
 };

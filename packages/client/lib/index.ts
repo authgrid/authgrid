@@ -6,8 +6,9 @@ import { responseEnhancer } from 'express-response-formatter';
 
 import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
 import { IUser } from '@authcom/common/interfaces/user.interfaces';
+import dovent from 'dotenv';
 
-require('dotenv').config();
+dovent.config();
 
 import routes from './routes';
 
