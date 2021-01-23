@@ -1,0 +1,37 @@
+{
+  "name": "@authgrid/mongoose-driver",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Nir Berko <nirberko@gmail.com>",
+  "homepage": "https://github.com/authgrid/authgrid#readme",
+  "license": "ISC",
+  "main": "lib/mongoose-driver.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/authgrid/authgrid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/authgrid/authgrid/issues"
+  },
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@authgrid/common": "^0.0.0",
+    "mongoose": "^5.11.13",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.10.3"
+  }
+}

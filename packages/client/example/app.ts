@@ -1,6 +1,6 @@
 import express from 'express';
 import Authgrid from '../lib';
-import { Driver as MongooseDriver } from '../../drivers/lib/mongoose';
+import { Driver as MongooseDriver } from '../../mongoose-driver/lib';
 import cors from 'cors';
 
 import mongoose from 'mongoose';
