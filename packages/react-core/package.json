@@ -5,6 +5,8 @@
   "author": "Nir Berko <nirberko@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@authcom/common": "^0.0.0",
+    "@authcom/drivers": "^0.0.4",
     "@craco/craco": "^6.0.0",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "@testing-library/jest-dom": "^5.11.9",

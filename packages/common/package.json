@@ -18,9 +18,6 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "dependencies": {
-    "@authcom/drivers": "^0.0.0"
-  },
   "devDependencies": {
     "@types/mongoose": "^5.10.3",
     "mongoose": "^5.11.13"

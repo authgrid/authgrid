@@ -1,6 +1,6 @@
 import express from 'express';
 import Authcom from './index';
-import { Driver as MongooseDriver } from '@authcom/drivers/mongoose';
+import { MongooseDriver } from '@authcom/drivers';
 import cors from 'cors';
 
 import mongoose from 'mongoose';

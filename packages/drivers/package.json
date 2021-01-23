@@ -1,22 +1,18 @@
 {
   "name": "@authcom/drivers",
-  "version": "0.0.0",
+  "version": "0.0.5",
   "description": "> TODO: description",
   "author": "Nir Berko <nirberko@gmail.com>",
   "homepage": "",
   "license": "ISC",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "lib"
+    "dist"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "prepublish": "tsc --build",
+    "publish": "npm run prepublish && npm publish"
   },
   "dependencies": {
     "@authcom/common": "^0.0.0",

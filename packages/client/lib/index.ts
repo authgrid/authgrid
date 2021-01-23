@@ -41,6 +41,8 @@ export class DriverHolder {
 export default (options: IOptions): express.Router => {
   if (options.driver) {
     DriverHolder.setDriver(options.driver);
+  } else {
+    throw new Error('please select a driver');
   }
 
   const router = express.Router();

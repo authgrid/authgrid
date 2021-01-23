@@ -31,4 +31,4 @@ coverage/
 .eslintcache
 .env
 .development.env
-build
+dist
