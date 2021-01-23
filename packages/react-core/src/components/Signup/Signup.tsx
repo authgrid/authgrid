@@ -14,7 +14,7 @@ export const Signup = () => {
 
   return (
     <Auth title="Sign Up" state="signup">
-      {!isSuccess ? (
+      {isSuccess ? (
         <div className="mt-5">
           Awesome! Check your inbox shortly for your confirmation email
         </div>
