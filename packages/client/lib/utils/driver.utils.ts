@@ -1,4 +1,4 @@
-import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
+import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
 
 export class DriverHolder {
   private static instance: DriverHolder;

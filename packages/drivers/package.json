@@ -1,6 +1,6 @@
 {
-  "name": "@authcom/drivers",
-  "version": "0.0.5",
+  "name": "@authgrid/drivers",
+  "version": "0.0.0",
   "description": "> TODO: description",
   "author": "Nir Berko <nirberko@gmail.com>",
   "homepage": "",
@@ -11,11 +11,10 @@
     "dist"
   ],
   "scripts": {
-    "prepublish": "tsc --build",
-    "publish": "npm run prepublish && npm publish"
+    "build": "tsc --build"
   },
   "dependencies": {
-    "@authcom/common": "^0.0.0",
+    "@authgrid/common": "^0.0.0",
     "mongoose": "^5.11.13",
     "uuid": "^8.3.2"
   },

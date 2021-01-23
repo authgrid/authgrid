@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { AuthcomProvider } from './context/AuthcomProvider';
+import { AuthgridProvider } from './context/AuthgridProvider';
 
 import './index.css';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
@@ -26,11 +26,11 @@ const Home = () => <div>test</div>;
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <AuthcomProvider context={context}>
+      <AuthgridProvider context={context}>
         <Switch>
           <ProtectedRoute path="/" component={Home} />
         </Switch>
-      </AuthcomProvider>
+      </AuthgridProvider>
     </BrowserRouter>
   </QueryClientProvider>,
   document.getElementById('root')

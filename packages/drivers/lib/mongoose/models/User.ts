@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-import { IUser } from '@authcom/common/interfaces/user.interfaces';
+import { IUser } from '@authgrid/common/interfaces/user.interfaces';
 
 const UserSchema: Schema = new Schema(
   {

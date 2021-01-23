@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
+import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
 import { comparePassword, encryptPassword } from '../utils/encrypt';
 import { createTokens } from '../utils/token';
 import { sendActivationEmail } from '../utils/auth.utils';
@@ -20,6 +20,10 @@ export default (driver: IDriver) => {
     'local',
     new LocalStrategy(options, async (email, password, done) => {
       const user = await driver.userActions.findUserByEmail({ email });
+
+      if (!user) {
+        done(null, false);
+      }
 
       if (await comparePassword(password, user.password)) {
         const [, newRefreshToken] = await createTokens(

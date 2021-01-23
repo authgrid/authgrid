@@ -1,6 +1,6 @@
 import { User } from './models/User';
-import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
-import { IUser } from '@authcom/common/interfaces/user.interfaces';
+import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
+import { IUser } from '@authgrid/common/interfaces/user.interfaces';
 import { ActivationToken } from './models/ActivationTokens';
 
 export const Driver = (): IDriver => ({

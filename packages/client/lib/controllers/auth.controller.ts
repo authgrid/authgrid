@@ -1,5 +1,5 @@
 import { refreshTokens } from '../utils/token';
-import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
+import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
 
 const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 

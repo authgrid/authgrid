@@ -1,11 +1,11 @@
-# `@authcom/common`
+# `@authgrid/common`
 
 > TODO: description
 
 ## Usage
 
 ```
-const common = require('@authcom/common');
+const common = require('@authgrid/common');
 
 // TODO: DEMONSTRATE API
 ```

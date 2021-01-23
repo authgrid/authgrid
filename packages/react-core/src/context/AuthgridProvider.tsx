@@ -10,7 +10,7 @@ import { Forgot } from '../components/Forgot/Forgot';
 import { Logout } from '../components/Logout/Logout';
 import { Activation } from '../components/Activation/Activation';
 
-export const AuthcomContext = React.createContext({
+export const AuthgridContext = React.createContext({
   user: null,
   isAuthenticated: false,
 });
@@ -28,7 +28,7 @@ const initialContext = {
   routes: initialRoutes,
 };
 
-export const AuthcomProvider = ({ children, context }) => {
+export const AuthgridProvider = ({ children, context }) => {
   const { data, isLoading, isSuccess } = useGetRefreshToken();
   const {
     mutate: mutateUser,
@@ -62,7 +62,7 @@ export const AuthcomProvider = ({ children, context }) => {
   }
 
   return (
-    <AuthcomContext.Provider value={{ user: userData, isAuthenticated }}>
+    <AuthgridContext.Provider value={{ user: userData, isAuthenticated }}>
       <Switch>
         <Route exact path={contextToSet.routes.login} component={Login} />
         <Route exact path={contextToSet.routes.signup} component={Signup} />
@@ -75,8 +75,8 @@ export const AuthcomProvider = ({ children, context }) => {
         />
         <Route>{children}</Route>
       </Switch>
-    </AuthcomContext.Provider>
+    </AuthgridContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthcomContext);
+export const useAuth = () => useContext(AuthgridContext);

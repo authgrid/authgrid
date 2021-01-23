@@ -4,8 +4,8 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { responseEnhancer } from 'express-response-formatter';
 
-import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
-import { IUser } from '@authcom/common/interfaces/user.interfaces';
+import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
+import { IUser } from '@authgrid/common/interfaces/user.interfaces';
 import dovent from 'dotenv';
 
 dovent.config();

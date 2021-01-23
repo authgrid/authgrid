@@ -3,7 +3,7 @@ import Loader from '../Loader/Loader';
 import { Request } from '../../utils/request';
 
 export const Logout = () => {
-  Request('/authcom/auth/logout').finally(() => {
+  Request('/authgrid/auth/logout').finally(() => {
     location.replace('/');
   });
 

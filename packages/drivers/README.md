@@ -1,11 +1,11 @@
-# `@authcom/drivers`
+# `@authgrid/drivers`
 
 > TODO: description
 
 ## Usage
 
 ```
-const drivers = require('@authcom/drivers');
+const drivers = require('@authgrid/drivers');
 
 // TODO: DEMONSTRATE API
 ```

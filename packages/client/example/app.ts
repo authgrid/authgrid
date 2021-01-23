@@ -1,12 +1,12 @@
 import express from 'express';
-import Authcom from '../lib';
-import { MongooseDriver } from '@authcom/drivers/lib/index';
+import Authgrid from '../lib';
+import { Driver as MongooseDriver } from '../../drivers/lib/mongoose';
 import cors from 'cors';
 
 import mongoose from 'mongoose';
 
 (async () => {
-  await mongoose.connect(String('mongodb://localhost:27017/authcom'), {
+  await mongoose.connect(String('mongodb://localhost:27017/authgrid'), {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -27,8 +27,8 @@ import mongoose from 'mongoose';
   });
 
   app.use(
-    '/authcom',
-    Authcom({
+    '/authgrid',
+    Authgrid({
       driver: MongooseDriver(),
     })
   );
