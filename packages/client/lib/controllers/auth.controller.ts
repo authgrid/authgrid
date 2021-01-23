@@ -1,9 +1,8 @@
 import { refreshTokens } from '../utils/token';
-import { UnauthorizedError } from '../utils/errors';
 
 const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-export const refreshToken = async (req, res, next) => {
+export const refreshToken = async (req, res) => {
   try {
     return res.send(
       await refreshTokens(
@@ -14,11 +13,11 @@ export const refreshToken = async (req, res, next) => {
       )
     );
   } catch (err) {
-    next(new UnauthorizedError());
+    res.formatter.unauthorized();
   }
 };
 
 export const logout = (req, res) => {
   res.clearCookie('ac_refresh');
-  res.sendStatus(200);
+  res.formatter.ok();
 };

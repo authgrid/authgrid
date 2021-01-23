@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
+import { responseEnhancer } from 'express-response-formatter';
 
 import { IDriver } from '@authcom/common/interfaces/driver.interfaces';
 import { IUser } from '@authcom/common/interfaces/user.interfaces';
@@ -49,6 +49,8 @@ export default (options: IOptions): express.Router => {
 
   router.use(bodyParser.urlencoded({ extended: true }));
   router.use(bodyParser.json());
+
+  router.use(responseEnhancer());
 
   router.use(cookieParser());
 

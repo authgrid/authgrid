@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import { UnauthorizedError } from '../utils/errors';
 
 const { TOKEN_SECRET } = process.env;
 
@@ -11,9 +10,9 @@ export const withAuthentication = () => async (req, res, next) => {
       req.user = user;
       next();
     } catch (err) {
-      next(new UnauthorizedError());
+      return res.formatter.unauthorized();
     }
   }
 
-  next(new UnauthorizedError());
+  res.formatter.unauthorized();
 };

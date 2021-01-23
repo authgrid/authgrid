@@ -2,14 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '../UI/Input';
 import { Label } from '../UI/Label';
-import { useLoginUser } from '../../actions/auth.actions';
-import { Request } from '../../utils/request';
+import { useSignUpUser } from '../../actions/auth.actions';
 import { Auth } from '../Auth/Auth';
 import { Button } from '../UI/Button';
 
 export const Signup = () => {
   const { register, handleSubmit, errors } = useForm();
-  const { mutate } = useLoginUser();
+  const { mutate } = useSignUpUser();
 
   const onSubmit = (data) => mutate(data);
 
@@ -19,7 +18,7 @@ export const Signup = () => {
         className="mt-10 flex flex-col gap-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Label title="Name">
+        <Label title="Name" error={errors.name && 'The Name is required'}>
           <Input
             type="text"
             name="name"
@@ -28,12 +27,23 @@ export const Signup = () => {
             ref={register({ required: true })}
           />
         </Label>
-        <Label title="Email">
+        <Label title="Email" error={errors.name && 'The Email is required'}>
           <Input
             type="email"
             name="email"
             placeholder="Your email address"
             autoComplete="email"
+            ref={register({ required: true })}
+          />
+        </Label>
+        <Label
+          title="Password"
+          error={errors.name && 'The Password is required'}
+        >
+          <Input
+            type="password"
+            name="password"
+            placeholder="Choose password"
             ref={register({ required: true })}
           />
         </Label>

@@ -1,3 +1,3 @@
 export const getUser = (req, res) => {
-  res.send(req.user);
+  res.formatter.ok(req.user);
 };

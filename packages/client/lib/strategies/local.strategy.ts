@@ -45,7 +45,7 @@ export default (driver: IDriver) => {
         const userExists = await driver.findUserByEmail({ email });
 
         if (userExists) {
-          return done('user already exists', null);
+          return done('Email already exists', false);
         }
 
         const hashPassword = await encryptPassword(password);
@@ -66,15 +66,18 @@ export default (driver: IDriver) => {
     passport.authenticate('local', { failureRedirect: '/login' }),
     async (req, res) => {
       res.cookie('ac_refresh', (req.user as any)?.refreshToken);
-      res.send(req.user);
+      res.formatter.ok(req.user);
     }
   );
 
   router.post(
     '/signup',
-    passport.authenticate('local-signup'),
-    function (req, res) {
-      res.json(req.user);
+    passport.authenticate('local-signup', { failWithError: true }),
+    (req, res) => {
+      res.formatter.ok(req.user);
+    },
+    (err, req, res, next) => {
+      return res.formatter.badRequest(err);
     }
   );
 
