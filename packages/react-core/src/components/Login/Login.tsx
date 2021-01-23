@@ -24,7 +24,7 @@ export const Login = () => {
   }, [data, isSuccess]);
 
   return (
-    <Auth title="Login" state="login">
+    <Auth title="Login">
       <form
         className="mt-10 flex flex-col gap-4"
         onSubmit={handleSubmit(onSubmit)}

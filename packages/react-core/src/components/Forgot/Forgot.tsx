@@ -13,7 +13,7 @@ export const Forgot = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <Auth title="Forgot Password" state="forgot">
+    <Auth title="Forgot Password">
       <form
         className="mt-10 flex flex-col gap-4"
         onSubmit={handleSubmit(onSubmit)}

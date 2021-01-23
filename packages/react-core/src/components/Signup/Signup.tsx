@@ -13,7 +13,7 @@ export const Signup = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <Auth title="Sign Up" state="signup">
+    <Auth title="Sign Up">
       {isSuccess ? (
         <div className="mt-5">
           Awesome! Check your inbox shortly for your confirmation email
