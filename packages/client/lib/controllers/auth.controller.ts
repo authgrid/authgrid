@@ -17,3 +17,8 @@ export const refreshToken = async (req, res, next) => {
     next(new UnauthorizedError());
   }
 };
+
+export const logout = (req, res) => {
+  res.clearCookie('ac_refresh');
+  res.sendStatus(200);
+};

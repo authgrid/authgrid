@@ -7,6 +7,7 @@ import Loader from '../components/Loader/Loader';
 import { Login } from '../components/Login/Login';
 import { Signup } from '../components/Signup/Signup';
 import { Forgot } from '../components/Forgot/Forgot';
+import { Logout } from '../components/Logout/Logout';
 
 export const AuthcomContext = React.createContext({
   user: null,
@@ -17,6 +18,7 @@ const initialRoutes = {
   login: '/account/login',
   signup: '/account/signup',
   forgot: '/account/forget-password',
+  logout: '/account/logout',
 };
 
 const initialContext = {
@@ -63,6 +65,7 @@ export const AuthcomProvider = ({ children, context }) => {
         <Route exact path={contextToSet.routes.login} component={Login} />
         <Route exact path={contextToSet.routes.signup} component={Signup} />
         <Route exact path={contextToSet.routes.forgot} component={Forgot} />
+        <Route exact path={contextToSet.routes.logout} component={Logout} />
         <Route>{children}</Route>
       </Switch>
     </AuthcomContext.Provider>

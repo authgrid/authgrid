@@ -2,6 +2,7 @@ interface IRoutes {
   login: string;
   signup: string;
   forgot: string;
+  logout: string;
 }
 
 export interface IContext {
