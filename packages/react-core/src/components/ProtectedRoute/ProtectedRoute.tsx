@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthcomProvider';
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated);
+
   return (
     <Route
       {...rest}

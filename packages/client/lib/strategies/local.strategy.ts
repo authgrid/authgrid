@@ -66,7 +66,7 @@ export default (driver: IDriver) => {
     passport.authenticate('local', { failureRedirect: '/login' }),
     async (req, res) => {
       res.cookie('ac_refresh', (req.user as any)?.refreshToken);
-      res.send('ok');
+      res.send(req.user);
     }
   );
 

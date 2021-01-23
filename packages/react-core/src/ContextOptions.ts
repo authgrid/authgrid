@@ -1,5 +1,12 @@
+interface IRoutes {
+  login: string;
+  signup: string;
+  forgot: string;
+}
+
 export interface IContext {
   baseUrl: string;
+  routes: IRoutes;
 }
 
 export class ContextHolder {

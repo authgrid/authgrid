@@ -14,13 +14,13 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "NODE_ENV=development ts-node-dev ./lib/app.ts",
+    "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only example/app.ts",
     "prepublish": "tsc --build",
     "publish": "npm run prepublish && npm publish"
   },
   "dependencies": {
     "@authcom/common": "^0.0.0",
-    "@authcom/drivers": "^0.0.4",
+    "@authcom/drivers": "^0.0.5",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",

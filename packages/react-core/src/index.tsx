@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { AuthcomProvider } from './context/AuthcomProvider';
 
 import './index.css';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {

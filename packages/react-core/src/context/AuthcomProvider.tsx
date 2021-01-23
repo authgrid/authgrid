@@ -1,15 +1,28 @@
 import React, { useEffect, useContext } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { ContextHolder } from '../ContextOptions';
 import { useGetRefreshToken } from '../actions/auth.actions';
 import { getUserMutation } from '../actions/user.actions';
 import Loader from '../components/Loader/Loader';
-import { Login } from '../components/Login';
+import { Login } from '../components/Login/Login';
+import { Signup } from '../components/Signup/Signup';
+import { Forgot } from '../components/Forgot/Forgot';
 
 export const AuthcomContext = React.createContext({
   user: null,
   isAuthenticated: false,
 });
+
+const initialRoutes = {
+  login: '/account/login',
+  signup: '/account/signup',
+  forgot: '/account/forget-password',
+};
+
+const initialContext = {
+  baseUrl: window.location.origin,
+  routes: initialRoutes,
+};
 
 export const AuthcomProvider = ({ children, context }) => {
   const { data, isLoading, isSuccess } = useGetRefreshToken();
@@ -19,7 +32,10 @@ export const AuthcomProvider = ({ children, context }) => {
     status,
     isSuccess: isSuccessUserData,
   } = getUserMutation();
-  ContextHolder.setContext(context);
+
+  const contextToSet = { ...initialContext, ...context };
+
+  ContextHolder.setContext(contextToSet);
 
   if (data?.accessToken) {
     ContextHolder.setAccessToken(data.accessToken);
@@ -44,7 +60,9 @@ export const AuthcomProvider = ({ children, context }) => {
   return (
     <AuthcomContext.Provider value={{ user: userData, isAuthenticated }}>
       <Switch>
-        <Route exact path="/account/login" component={Login} />
+        <Route exact path={contextToSet.routes.login} component={Login} />
+        <Route exact path={contextToSet.routes.signup} component={Signup} />
+        <Route exact path={contextToSet.routes.forgot} component={Forgot} />
         <Route>{children}</Route>
       </Switch>
     </AuthcomContext.Provider>
