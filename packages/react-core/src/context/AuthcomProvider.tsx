@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { ContextHolder } from '../ContextOptions';
 import { useGetRefreshToken } from '../actions/auth.actions';
 import { getUserMutation } from '../actions/user.actions';
@@ -53,7 +53,7 @@ export const AuthcomProvider = ({ children, context }) => {
 
   const isAuthenticated = isSuccess && isSuccessUserData;
 
-  if (isLoading) {
+  if (isLoading || (isSuccess && status === 'idle') || status === 'loading') {
     return (
       <div className="flex h-screen items-center justify-center">
         <Loader />
@@ -79,8 +79,4 @@ export const AuthcomProvider = ({ children, context }) => {
   );
 };
 
-export const useAuth = () => {
-  const authcomContext = useContext(AuthcomContext);
-
-  return authcomContext;
-};
+export const useAuth = () => useContext(AuthcomContext);

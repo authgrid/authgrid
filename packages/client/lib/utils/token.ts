@@ -32,11 +32,12 @@ export const refreshTokens = async (
 ) => {
   const driver = DriverHolder.getDriver();
 
-  let userId;
+  let userId = null;
 
   const {
     user: { id },
   } = jwt.decode(refreshToken);
+
   userId = id;
 
   if (!userId) {
