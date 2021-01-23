@@ -4,7 +4,7 @@ const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
 export const refreshToken = async (req, res) => {
   try {
-    return res.send(
+    return res.formatter.ok(
       await refreshTokens(
         req.user,
         req.cookies['ac_refresh'],

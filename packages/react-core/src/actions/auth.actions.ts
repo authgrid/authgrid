@@ -12,6 +12,6 @@ export const useLoginUser = () =>
   );
 
 export const useSignUpUser = () =>
-  useMutation(queryKey, (data) =>
+  useMutation<any, Error>(queryKey, (data) =>
     Request('/authcom/local/signup', { method: 'POST', data })
   );

@@ -35,8 +35,10 @@ export const Request = (
     body: data && JSON.stringify(data),
     credentials: 'include',
   }).then(async (response) => {
-    if (!response.ok) throw new Error(response.statusText);
+    if (!response.ok) {
+      throw new Error((await response.json()).error);
+    }
 
-    return await response.json();
+    return (await response.json())?.data;
   });
 };

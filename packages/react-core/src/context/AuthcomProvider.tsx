@@ -51,7 +51,7 @@ export const AuthcomProvider = ({ children, context }) => {
 
   const isAuthenticated = isSuccess && isSuccessUserData;
 
-  if (isLoading || (isSuccess && status === 'idle') || status === 'loading') {
+  if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
         <Loader />

@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from '../../context/AuthcomProvider';
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <Route
