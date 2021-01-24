@@ -7,7 +7,7 @@ import { Label } from '../UI/Label';
 import { useLoginUser } from '../../actions/auth.actions';
 import { Auth } from '../Auth/Auth';
 import { Button } from '../UI/Button';
-import { ContextHolder } from '../../ContextOptions';
+import { ContextHolder } from '../../context/ContextOptions';
 
 export const Login = () => {
   const context = ContextHolder.getContext();

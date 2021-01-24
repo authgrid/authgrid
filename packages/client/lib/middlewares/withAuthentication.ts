@@ -8,7 +8,7 @@ export const withAuthentication = () => async (req, res, next) => {
     try {
       const { user } = jwt.verify(token, TOKEN_SECRET);
       req.user = user;
-      next();
+      return next();
     } catch (err) {
       return res.formatter.unauthorized();
     }

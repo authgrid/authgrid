@@ -1,4 +1,4 @@
-import { ContextHolder } from '../ContextOptions';
+import { ContextHolder } from '../context/ContextOptions';
 
 interface IRequest {
   method?: string;

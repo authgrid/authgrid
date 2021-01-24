@@ -3,17 +3,21 @@ import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
 
 const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-export const refreshToken = async (req, res) => {
+export const refreshToken = async (req, res, next) => {
   try {
-    return res.formatter.ok(
-      await refreshTokens(
-        req.user,
-        req.cookies['ac_refresh'],
-        TOKEN_SECRET,
-        REFRESH_TOKEN_SECRET
-      )
-    );
+    if (req.cookies['ac_refresh']) {
+      return res.formatter.ok(
+        await refreshTokens(
+          req.user,
+          req.cookies['ac_refresh'],
+          TOKEN_SECRET,
+          REFRESH_TOKEN_SECRET
+        )
+      );
+    }
+    res.formatter.unauthorized();
   } catch (err) {
+    next(err);
     res.formatter.unauthorized();
   }
 };

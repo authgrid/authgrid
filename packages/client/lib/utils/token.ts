@@ -67,5 +67,6 @@ export const refreshTokens = async (
   return {
     accessToken: newToken,
     refreshToken: newRefreshToken,
+    expiresIn: TOKEN_EXPIRES,
   };
 };

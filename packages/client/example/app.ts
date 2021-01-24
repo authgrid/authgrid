@@ -30,6 +30,9 @@ import mongoose from 'mongoose';
     '/authgrid',
     Authgrid({
       driver: MongooseDriver(),
+      tokenSecret: String(process.env.TOKEN_SECRET),
+      refreshTokenSecret: String(process.env.REFRESH_TOKEN_SECRET),
+      sendGridApiKey: String(process.env.SENDGRID_API_KEY),
     })
   );
 

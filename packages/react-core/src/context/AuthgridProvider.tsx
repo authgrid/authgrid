@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ContextHolder } from '../ContextOptions';
+import { ContextHolder } from './ContextOptions';
 import { useGetRefreshToken } from '../actions/auth.actions';
 import { getUserMutation } from '../actions/user.actions';
 import Loader from '../components/Loader/Loader';
