@@ -5,19 +5,22 @@ import cookieParser from 'cookie-parser';
 import { responseEnhancer } from 'express-response-formatter';
 import { IUser } from '@authgrid/common/interfaces/user.interfaces';
 import dovent from 'dotenv';
+import sgMail from '@sendgrid/mail';
 
 dovent.config();
 
 import routes from './routes';
 
 import LocalStrategy, { LOCAL_ENDPOINT } from './strategies/local.strategy';
-import { DriverHolder } from './utils/driver.utils';
+import { ContextHolder } from './utils/context.utils';
 import { expressLogger } from './utils/logger.utils';
 import { IOptions } from '@authgrid/common/interfaces/authGrid.interfaces';
+import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
 
 declare module 'express' {
   export interface Request {
-    user: any;
+    user: IUser;
+    driver: IDriver;
   }
 }
 
@@ -32,11 +35,13 @@ export default (options: IOptions): express.Router => {
     ...options,
   };
 
-  if (options.driver) {
-    DriverHolder.setDriver(options.driver);
-  } else {
+  if (!options.driver) {
     throw new Error('please select a driver');
   }
+
+  sgMail.setApiKey(options.sendGridApiKey);
+
+  ContextHolder.setContext(options);
 
   const router = express.Router();
 
@@ -68,7 +73,7 @@ export default (options: IOptions): express.Router => {
     next();
   });
 
-  router.use(LOCAL_ENDPOINT, LocalStrategy(options.driver));
+  router.use(LOCAL_ENDPOINT, LocalStrategy());
 
   router.use('/', routes);
 

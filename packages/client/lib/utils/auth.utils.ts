@@ -1,8 +1,8 @@
 import { sendMessage, templates } from '../services/sendgrid';
-import { DriverHolder } from './driver.utils';
+import { ContextHolder } from './context.utils';
 
 export const sendActivationEmail = async ({ email, id }) => {
-  const driver = DriverHolder.getDriver();
+  const driver = ContextHolder.getDriver();
 
   const token = await driver?.activationTokenActions.createActivationToken({
     userId: id,

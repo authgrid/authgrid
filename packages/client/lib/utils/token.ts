@@ -1,14 +1,13 @@
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
-import { DriverHolder } from './driver.utils';
-
-const { TOKEN_EXPIRES, REFRESH_TOKEN_EXPIRES } = process.env;
+import { ContextHolder } from './context.utils';
 
 export const createTokens = async (user, SECRET, REFRESH_SECRET) => {
   delete user.password;
+  const { tokenExpires, refreshTokenExpires } = ContextHolder.getContext();
 
   const createToken = jwt.sign({ user }, SECRET, {
-    expiresIn: TOKEN_EXPIRES,
+    expiresIn: tokenExpires,
   });
 
   const createRefreshToken = jwt.sign(
@@ -17,7 +16,7 @@ export const createTokens = async (user, SECRET, REFRESH_SECRET) => {
     },
     REFRESH_SECRET,
     {
-      expiresIn: REFRESH_TOKEN_EXPIRES,
+      expiresIn: refreshTokenExpires,
     }
   );
 
@@ -30,7 +29,8 @@ export const refreshTokens = async (
   SECRET,
   REFRESH_SECRET
 ) => {
-  const driver = DriverHolder.getDriver();
+  const driver = ContextHolder.getDriver();
+  const { tokenExpires } = ContextHolder.getContext();
 
   let userId = null;
 
@@ -67,6 +67,6 @@ export const refreshTokens = async (
   return {
     accessToken: newToken,
     refreshToken: newRefreshToken,
-    expiresIn: TOKEN_EXPIRES,
+    expiresIn: tokenExpires,
   };
 };

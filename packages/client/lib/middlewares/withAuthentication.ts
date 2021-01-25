@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken';
-
-const { TOKEN_SECRET } = process.env;
+import { ContextHolder } from '../utils/context.utils';
 
 export const withAuthentication = () => async (req, res, next) => {
+  const { tokenSecret } = ContextHolder.getContext();
+
   const token = req.headers['authorization']?.replace('Bearer ', '');
   if (token) {
     try {
-      const { user } = jwt.verify(token, TOKEN_SECRET);
+      const { user } = jwt.verify(token, tokenSecret);
       req.user = user;
       return next();
     } catch (err) {

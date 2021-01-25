@@ -1,4 +1,5 @@
 import { IUser } from './user.interfaces';
+import { IToken } from './tokens.interfaces';
 
 export interface IDriver {
   userActions: {
@@ -16,6 +17,17 @@ export interface IDriver {
     deleteActivationToken: (params: {
       token: string;
       userId: string;
-    }) => Promise<any>;
+    }) => Promise<boolean>;
+  };
+  resetPasswordActions: {
+    createResetPasswordToken: (params: { userId: string }) => Promise<string>;
+    getResetPasswordToken: (params: {
+      token: string;
+      userId: string;
+    }) => Promise<IToken>;
+    deleteResetPasswordToken: (params: {
+      token: string;
+      userId: string;
+    }) => Promise<boolean>;
   };
 }

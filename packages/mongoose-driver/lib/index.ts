@@ -1,7 +1,7 @@
 import { User } from './models/User';
 import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
 import { IUser } from '@authgrid/common/interfaces/user.interfaces';
-import { ActivationToken } from './models/ActivationTokens';
+import { Token } from './models/Token';
 
 export const Driver = (): IDriver => ({
   userActions: {
@@ -21,18 +21,19 @@ export const Driver = (): IDriver => ({
     updateUserById: ({ userId, update }) =>
       User.findOneAndUpdate({ id: userId }, update, {
         new: true,
-      }),
+      }).lean(),
   },
   activationTokenActions: {
     createActivationToken: async ({ userId }) => {
-      const activationToken = await new ActivationToken({
+      const activationToken = await new Token({
         userId,
+        type: 'activation',
       }).save();
 
       return activationToken.token;
     },
     validateActivationToken: async ({ token, userId }) => {
-      const activationToken = await ActivationToken.findOne({
+      const activationToken = await Token.findOne({
         token,
         userId,
       }).lean();
@@ -40,9 +41,27 @@ export const Driver = (): IDriver => ({
       return Boolean(activationToken);
     },
     deleteActivationToken: ({ token, userId }) =>
-      ActivationToken.deleteOne({
+      Token.deleteOne({
         token,
         userId,
+      }),
+  },
+  resetPasswordActions: {
+    createResetPasswordToken: async ({ userId }) => {
+      const activationToken = await new Token({
+        userId,
+        type: 'reset-password',
+      }).save();
+
+      return activationToken.token;
+    },
+    getResetPasswordToken: ({ token }) =>
+      Token.findOne({
+        token,
+      }).lean(),
+    deleteResetPasswordToken: ({ token }) =>
+      Token.deleteOne({
+        token,
       }),
   },
 });

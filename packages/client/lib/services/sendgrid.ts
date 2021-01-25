@@ -1,11 +1,13 @@
 import sgMail from '@sendgrid/mail';
 
-sgMail.setApiKey(String(process.env.SENDGRID_API_KEY));
-
 export const templates = {
   activate: ({ token, userId }) => ({
     subject: 'Activate Your Account',
     html: `http://localhost:3000/account/activate?userId=${userId}&token=${token}`,
+  }),
+  resetPassword: ({ token }) => ({
+    subject: 'Reset your password',
+    html: `http://localhost:3000/account/reset-password?token=${token}`,
   }),
 };
 

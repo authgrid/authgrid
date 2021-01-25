@@ -1,16 +1,17 @@
 import express from 'express';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
-import { comparePassword, encryptPassword } from '../utils/encrypt';
+import { comparePassword, encryptPassword } from '../utils/password.utils';
 import { createTokens } from '../utils/token';
 import { sendActivationEmail } from '../utils/auth.utils';
+import { ContextHolder } from '../utils/context.utils';
 
 export const LOCAL_ENDPOINT = '/local';
 
-const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+export default () => {
+  const driver = ContextHolder.getDriver();
+  const { tokenSecret, refreshTokenSecret } = ContextHolder.getContext();
 
-export default (driver: IDriver) => {
   const options = {
     usernameField: 'email',
     passwordField: 'password',
@@ -28,8 +29,8 @@ export default (driver: IDriver) => {
       if (await comparePassword(password, user.password)) {
         const [, newRefreshToken] = await createTokens(
           user,
-          TOKEN_SECRET,
-          `${REFRESH_TOKEN_SECRET}${user.password}`
+          tokenSecret,
+          `${refreshTokenSecret}${user.password}`
         );
 
         delete user.password;
@@ -89,7 +90,6 @@ export default (driver: IDriver) => {
     (req, res) => {
       res.formatter.ok(req.user);
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (err, req, res, next) => {
       return res.formatter.badRequest(err);
     }
