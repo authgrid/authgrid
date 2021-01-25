@@ -3,6 +3,7 @@ interface IRoutes {
   signup: string;
   forgotPassword: string;
   resetPassword: string;
+  activateAccount: string;
   logout: string;
 }
 
@@ -28,8 +29,8 @@ export class ContextHolder {
     ContextHolder.getInstance().context = context;
   }
 
-  public static getContext(): IContext | null {
-    return ContextHolder.getInstance().context;
+  public static getContext(): IContext {
+    return <IContext>ContextHolder.getInstance().context;
   }
 
   public static setAccessToken(accessToken: string | null) {

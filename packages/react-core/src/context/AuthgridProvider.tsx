@@ -1,15 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
 import { ContextHolder } from './ContextOptions';
-import { useGetRefreshToken } from '../actions/auth.actions';
-import { getUserMutation } from '../actions/user.actions';
 import Loader from '../components/Loader/Loader';
-import { Login } from '../components/Login/Login';
-import { Signup } from '../components/Signup/Signup';
-import { ForgotPassword } from '../components/ForgotPassword/ForgotPassword';
-import { Logout } from '../components/Logout/Logout';
-import { Activation } from '../components/Activation/Activation';
-import { ResetPassword } from '../components/ResetPassword/ResetPassword';
+import { useRefreshToken } from '../hooks/useRefresshToken';
+import { useGetUser } from '../hooks/useGetUser';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export const AuthgridContext = React.createContext({
   user: null,
@@ -22,7 +16,7 @@ const initialRoutes = {
   forgotPassword: '/account/forget-password',
   resetPassword: '/account/reset-password',
   logout: '/account/logout',
-  activate: '/account/activate',
+  activateAccount: '/account/activate',
 };
 
 const initialContext = {
@@ -30,32 +24,32 @@ const initialContext = {
   routes: initialRoutes,
 };
 
-export const AuthgridProvider = ({ children, context }) => {
-  const { data, isLoading, isSuccess } = useGetRefreshToken();
-  const {
-    mutate: mutateUser,
-    data: userData,
-    status,
-    isSuccess: isSuccessUserData,
-  } = getUserMutation();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+const AuthgridContextProvider = ({ children, context }) => {
+  const { accessToken, isLoading, isSuccess } = useRefreshToken();
+  const { getUser, user, isLoading: isLoadingUser } = useGetUser();
 
   const contextToSet = { ...initialContext, ...context };
 
   ContextHolder.setContext(contextToSet);
 
-  if (data?.accessToken) {
-    ContextHolder.setAccessToken(data.accessToken);
-  }
-
   useEffect(() => {
-    if (data?.accessToken) {
-      mutateUser();
+    if (accessToken && !user) {
+      getUser();
     }
-  }, [data]);
+  }, [accessToken]);
 
-  const isAuthenticated = isSuccess && isSuccessUserData;
+  const isAuthenticated = isSuccess && user;
 
-  if (isLoading || (isSuccess && status === 'idle') || status === 'loading') {
+  if (isLoading || isLoadingUser) {
     return (
       <div className="flex h-screen items-center justify-center">
         <Loader />
@@ -64,29 +58,21 @@ export const AuthgridProvider = ({ children, context }) => {
   }
 
   return (
-    <AuthgridContext.Provider value={{ user: userData, isAuthenticated }}>
-      <Switch>
-        <Route exact path={contextToSet.routes.login} component={Login} />
-        <Route exact path={contextToSet.routes.signup} component={Signup} />
-        <Route
-          exact
-          path={contextToSet.routes.forgotPassword}
-          component={ForgotPassword}
-        />
-        <Route
-          exact
-          path={contextToSet.routes.resetPassword}
-          component={ResetPassword}
-        />
-        <Route exact path={contextToSet.routes.logout} component={Logout} />
-        <Route
-          exact
-          path={contextToSet.routes.activate}
-          component={Activation}
-        />
-        <Route>{children}</Route>
-      </Switch>
-    </AuthgridContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <AuthgridContext.Provider value={{ user, isAuthenticated }}>
+        {children}
+      </AuthgridContext.Provider>
+    </QueryClientProvider>
+  );
+};
+
+export const AuthgridProvider = ({ children, context }) => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthgridContextProvider context={context}>
+        {children}
+      </AuthgridContextProvider>
+    </QueryClientProvider>
   );
 };
 

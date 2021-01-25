@@ -4,7 +4,7 @@ import { Request } from '../utils/request';
 const queryKey = 'auth';
 
 export const useGetRefreshToken = () =>
-  useQuery([queryKey, 'refresh'], () =>
+  useMutation([queryKey, 'refresh'], () =>
     Request('/authgrid/auth/token/refresh')
   );
 
