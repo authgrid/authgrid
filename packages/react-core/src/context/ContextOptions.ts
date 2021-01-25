@@ -1,7 +1,8 @@
 interface IRoutes {
   login: string;
   signup: string;
-  forgot: string;
+  forgotPassword: string;
+  resetPassword: string;
   logout: string;
 }
 

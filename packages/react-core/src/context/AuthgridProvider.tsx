@@ -6,9 +6,10 @@ import { getUserMutation } from '../actions/user.actions';
 import Loader from '../components/Loader/Loader';
 import { Login } from '../components/Login/Login';
 import { Signup } from '../components/Signup/Signup';
-import { Forgot } from '../components/Forgot/Forgot';
+import { ForgotPassword } from '../components/ForgotPassword/ForgotPassword';
 import { Logout } from '../components/Logout/Logout';
 import { Activation } from '../components/Activation/Activation';
+import { ResetPassword } from '../components/ResetPassword/ResetPassword';
 
 export const AuthgridContext = React.createContext({
   user: null,
@@ -18,7 +19,8 @@ export const AuthgridContext = React.createContext({
 const initialRoutes = {
   login: '/account/login',
   signup: '/account/signup',
-  forgot: '/account/forget-password',
+  forgotPassword: '/account/forget-password',
+  resetPassword: '/account/reset-password',
   logout: '/account/logout',
   activate: '/account/activate',
 };
@@ -66,7 +68,16 @@ export const AuthgridProvider = ({ children, context }) => {
       <Switch>
         <Route exact path={contextToSet.routes.login} component={Login} />
         <Route exact path={contextToSet.routes.signup} component={Signup} />
-        <Route exact path={contextToSet.routes.forgot} component={Forgot} />
+        <Route
+          exact
+          path={contextToSet.routes.forgotPassword}
+          component={ForgotPassword}
+        />
+        <Route
+          exact
+          path={contextToSet.routes.resetPassword}
+          component={ResetPassword}
+        />
         <Route exact path={contextToSet.routes.logout} component={Logout} />
         <Route
           exact

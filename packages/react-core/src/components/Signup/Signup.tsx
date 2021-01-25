@@ -8,7 +8,7 @@ import { Button } from '../UI/Button';
 
 export const Signup = () => {
   const { register, handleSubmit, errors } = useForm();
-  const { mutate, isSuccess, data, error, isError } = useSignUpUser();
+  const { mutate, isSuccess, error, isError } = useSignUpUser();
 
   const onSubmit = (data) => mutate(data);
 

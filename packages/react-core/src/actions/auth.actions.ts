@@ -18,6 +18,19 @@ export const useSignUpUser = () =>
     Request('/authgrid/local/signup', { method: 'POST', data })
   );
 
+export const useForgotPassword = () =>
+  useMutation([queryKey, 'forgot-password'], (data) =>
+    Request('/authgrid/auth/forgot-password', { method: 'POST', data })
+  );
+
+export const useResetPassword = ({ token }) =>
+  useMutation([queryKey, 'reset-password'], (data) =>
+    Request(`/authgrid/auth/reset-password?token=${token}`, {
+      method: 'POST',
+      data,
+    })
+  );
+
 export const useActivationQuery = ({ userId, token }) =>
   useQuery([queryKey, 'activate'], () =>
     Request('/authgrid/auth/activate', {

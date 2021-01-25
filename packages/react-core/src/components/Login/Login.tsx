@@ -52,7 +52,10 @@ export const Login = () => {
         </Label>
         <Button type="submit">Login</Button>
         <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
-          <Link to={context?.routes.forgot} className="flex-2 underline">
+          <Link
+            to={context?.routes.forgotPassword}
+            className="flex-2 underline"
+          >
             Forgot password?
           </Link>
 
