@@ -9,6 +9,7 @@ import { Label } from '../UI/Label';
 import { useSignUpUser } from '../../actions/auth.actions';
 import { Auth } from '../Auth/Auth';
 import { Button } from '../UI/Button';
+import { useTranslation } from 'react-i18next';
 
 const schema = Joi.object({
   name: Joi.string().required(),
@@ -19,6 +20,7 @@ const schema = Joi.object({
 });
 
 export const Signup = () => {
+  const { t } = useTranslation(['auth', 'common']);
   const { register, handleSubmit, errors, formState } = useForm({
     mode: 'onChange',
     resolver: joiResolver(schema),
@@ -28,18 +30,16 @@ export const Signup = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <Auth title="Sign Up">
+    <Auth title={t('title.signUp')}>
       {isSuccess ? (
-        <div className="mt-5">
-          Awesome! Check your inbox shortly for your confirmation email
-        </div>
+        <div className="mt-5">{t('message.signUpSucceed')}</div>
       ) : (
         <form
           className="mt-10 flex flex-col gap-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Label
-            title="Name"
+            title={t('label.name')}
             error={errors.name && formState.isSubmitted && 'Name is required'}
           >
             <Input
@@ -51,9 +51,9 @@ export const Signup = () => {
             />
           </Label>
           <Label
-            title="Email"
+            title={t('label.email')}
             error={
-              errors.name && formState.isSubmitted && 'Invalid email address'
+              errors.name && formState.isSubmitted && t('error.invalidEmail')
             }
           >
             <Input
@@ -65,11 +65,9 @@ export const Signup = () => {
             />
           </Label>
           <Label
-            title="Password"
+            title={t('label.password')}
             error={
-              errors.name &&
-              formState.isSubmitted &&
-              'Passwords must be at least ten characters long'
+              errors.name && formState.isSubmitted && t('error.invalidPassword')
             }
           >
             <Input
@@ -81,14 +79,14 @@ export const Signup = () => {
           </Label>
           {isError && error && <span>{error.message}</span>}
           <Button type="submit" disabled={!formState.isValid}>
-            Sign Up
+            {t('button.signUp')}
           </Button>
         </form>
       )}
       <div className="mt-5 text-gray-500 text-sm">
-        Go back to{' '}
+        {t('navigation.goBackTo')}{' '}
         <Link to="/" className="text-black underline">
-          Login page
+          {t('navigation.login')}
         </Link>
         .
       </div>

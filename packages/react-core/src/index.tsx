@@ -4,6 +4,8 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { AuthgridProvider } from './context/AuthgridProvider';
 
+import './i18n';
+
 import './index.css';
 
 const context = {

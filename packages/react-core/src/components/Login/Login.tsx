@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
+import { useTranslation } from 'react-i18next';
 
 import { Input } from '../UI/Input';
 import { Label } from '../UI/Label';
@@ -20,6 +21,7 @@ const schema = Joi.object({
 });
 
 export const Login = () => {
+  const { t } = useTranslation(['auth', 'common']);
   const context = ContextHolder.getContext();
 
   const { register, handleSubmit, errors, formState } = useForm({
@@ -37,59 +39,59 @@ export const Login = () => {
   }, [data, isSuccess]);
 
   return (
-    <Auth title="Login">
+    <Auth title={t('title.login')}>
       <form
         className="mt-10 flex flex-col gap-4"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Label
-          title="Email"
+          title={t('label.email')}
           error={
-            errors.email && formState.isSubmitted && 'Invalid email address'
+            errors.email && formState.isSubmitted && t('error.invalidEmail')
           }
         >
           <Input
             type="email"
             name="email"
-            placeholder="e-mail address"
+            placeholder={t('placeholder.email')}
             autoComplete="email"
             ref={register}
           />
         </Label>
         <Label
-          title="Password"
+          title={t('label.password')}
           error={
             errors.password &&
             formState.isSubmitted &&
-            'The Password is required'
+            t('error.required', { field: 'Password' })
           }
         >
           <Input
             type="password"
             name="password"
-            placeholder="password"
+            placeholder={t('placeholder.password')}
             autoComplete="current-password"
             ref={register}
           />
         </Label>
-        {isError && <Error>Invalid email and password combination</Error>}
+        {isError && <Error>{t('error.invalidLogin')}</Error>}
         <Button type="submit" disabled={!formState.isValid}>
-          Login
+          {t('button.login')}
         </Button>
         <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
           <Link
             to={context?.routes.forgotPassword}
             className="flex-2 underline"
           >
-            Forgot password?
+            {t('navigation.forgotPassword')}
           </Link>
 
           <p className="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
-            or
+            {t('common::verbs.or')}
           </p>
 
           <Link to={context?.routes.signup} className="flex-2 underline">
-            Create an Account
+            {t('navigation.signUp')}
           </Link>
         </div>
       </form>

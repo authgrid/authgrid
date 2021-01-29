@@ -9,6 +9,7 @@ import { Label } from '../UI/Label';
 import { useForgotPassword } from '../../actions/auth.actions';
 import { Auth } from '../Auth/Auth';
 import { Button } from '../UI/Button';
+import { useTranslation } from 'react-i18next';
 
 const schema = Joi.object({
   email: Joi.string()
@@ -17,6 +18,8 @@ const schema = Joi.object({
 });
 
 export const ForgotPassword = () => {
+  const { t } = useTranslation(['auth', 'common']);
+
   const { register, handleSubmit, errors, formState } = useForm({
     mode: 'onChange',
     resolver: joiResolver(schema),
@@ -26,12 +29,10 @@ export const ForgotPassword = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <Auth title="Forgot Password">
+    <Auth title={t('title.forgotPassword')}>
       {isSuccess ? (
-        <div className="mt-5 text-green-800">
-          We&apos;ve sent you an email which you can use to change your
-          password. Check your spam folder if you haven&apos;t received it after
-          a few minutes.
+        <div className="mt-5 text-green-800 whitespace-pre-line">
+          {t('message.forgotPasswordSucceed')}
         </div>
       ) : (
         <form
@@ -39,28 +40,30 @@ export const ForgotPassword = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Label
-            title="Email"
+            title={t('label.email')}
             error={
-              errors.email && formState.isSubmitted && 'The Email is required'
+              errors.email &&
+              formState.isSubmitted &&
+              t('error.required', { field: 'email' })
             }
           >
             <Input
               type="email"
               name="email"
-              placeholder="e-mail address"
+              placeholder={t('placeholder.email')}
               autoComplete="email"
               ref={register}
             />
           </Label>
           <Button type="submit" disabled={!formState.isValid}>
-            Remind Me
+            {t('button.remindMe')}
           </Button>
         </form>
       )}
       <div className="mt-5 text-gray-500 text-sm">
-        Go back to{' '}
+        {t('navigation.goBackTo')}{' '}
         <Link to="/" className="text-black underline">
-          Login page
+          {t('navigation.login')}
         </Link>
         .
       </div>
