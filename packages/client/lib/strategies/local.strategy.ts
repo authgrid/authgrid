@@ -77,10 +77,13 @@ export default () => {
 
   router.post(
     '/login',
-    passport.authenticate('local', { failureRedirect: '/login' }),
+    passport.authenticate('local'),
     async (req, res) => {
       res.cookie('ac_refresh', (req.user as any)?.refreshToken);
       res.formatter.ok(req.user);
+    },
+    (err, req, res, next) => {
+      return res.formatter.badRequest();
     }
   );
 
