@@ -1,6 +1,6 @@
 {
 	"name": "@authgrid/client",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "> TODO: description",
 	"author": "Nir Berko <nirberko@gmail.com>",
 	"homepage": "",
@@ -18,7 +18,7 @@
 		"build": "tsc --build"
 	},
 	"dependencies": {
-		"@authgrid/common": "^0.0.0",
+		"@authgrid/common": "^0.1.0",
 		"@sendgrid/mail": "^7.4.2",
 		"bcrypt": "^5.0.0",
 		"bcryptjs": "^2.4.3",
