@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
-import { AuthgridProvider } from './context/AuthgridProvider';
+import { ProtectedRoute } from './lib/components/ProtectedRoute/ProtectedRoute';
+import { AuthgridProvider } from './lib';
 
-import './i18n';
+import './lib/i18n';
 
 import './index.css';
 
