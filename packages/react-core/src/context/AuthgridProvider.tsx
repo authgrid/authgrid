@@ -4,6 +4,7 @@ import Loader from '../components/Loader/Loader';
 import { useRefreshToken } from '../hooks/useRefresshToken';
 import { useGetUser } from '../hooks/useGetUser';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Routes } from '../routes';
 
 export const AuthgridContext = React.createContext({
   user: null,
@@ -35,7 +36,7 @@ const queryClient = new QueryClient({
 
 const AuthgridContextProvider = ({ children, context }) => {
   const { accessToken, isLoading, isSuccess } = useRefreshToken();
-  const { getUser, user, isLoading: isLoadingUser } = useGetUser();
+  const { getUser, user, status } = useGetUser();
 
   const contextToSet = { ...initialContext, ...context };
 
@@ -49,7 +50,7 @@ const AuthgridContextProvider = ({ children, context }) => {
 
   const isAuthenticated = isSuccess && user;
 
-  if (isLoading || isLoadingUser) {
+  if (isLoading || (isSuccess && (status === 'idle' || status === 'loading'))) {
     return (
       <div className="flex h-screen items-center justify-center">
         <Loader />
@@ -66,14 +67,12 @@ const AuthgridContextProvider = ({ children, context }) => {
   );
 };
 
-export const AuthgridProvider = ({ children, context }) => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthgridContextProvider context={context}>
-        {children}
-      </AuthgridContextProvider>
-    </QueryClientProvider>
-  );
-};
+export const AuthgridProvider = ({ children, context }) => (
+  <QueryClientProvider client={queryClient}>
+    <AuthgridContextProvider context={{ ...initialContext, ...context }}>
+      <Routes>{children}</Routes>
+    </AuthgridContextProvider>
+  </QueryClientProvider>
+);
 
 export const useAuth = () => useContext(AuthgridContext);

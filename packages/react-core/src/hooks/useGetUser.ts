@@ -6,7 +6,7 @@ export const useGetUser = () => {
   return {
     getUser,
     user: data,
-    isLoading: status === 'idle' || status === 'loading',
+    status,
     isSuccess,
   };
 };
