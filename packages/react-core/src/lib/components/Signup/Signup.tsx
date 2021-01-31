@@ -21,8 +21,7 @@ const schema = Joi.object({
 
 export const Signup = () => {
   const { t } = useTranslation(['auth', 'common']);
-  const { register, handleSubmit, errors, formState } = useForm({
-    mode: 'onChange',
+  const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(schema),
   });
   const { mutate, isSuccess, error, isError } = useSignUpUser();
@@ -40,7 +39,7 @@ export const Signup = () => {
         >
           <Label
             title={t('label.name')}
-            error={errors.name && formState.isSubmitted && 'Name is required'}
+            error={errors.name && 'Name is required'}
           >
             <Input
               type="text"
@@ -52,9 +51,7 @@ export const Signup = () => {
           </Label>
           <Label
             title={t('label.email')}
-            error={
-              errors.name && formState.isSubmitted && t('error.invalidEmail')
-            }
+            error={errors.name && t('error.invalidEmail')}
           >
             <Input
               type="email"
@@ -66,9 +63,7 @@ export const Signup = () => {
           </Label>
           <Label
             title={t('label.password')}
-            error={
-              errors.name && formState.isSubmitted && t('error.invalidPassword')
-            }
+            error={errors.name && t('error.invalidPassword')}
           >
             <Input
               type="password"
@@ -78,9 +73,7 @@ export const Signup = () => {
             />
           </Label>
           {isError && error && <span>{error.message}</span>}
-          <Button type="submit" disabled={!formState.isValid}>
-            {t('button.signUp')}
-          </Button>
+          <Button type="submit">{t('button.signUp')}</Button>
         </form>
       )}
       <div className="mt-5 text-gray-500 text-sm">

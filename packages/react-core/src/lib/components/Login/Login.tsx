@@ -24,8 +24,7 @@ export const Login = () => {
   const { t } = useTranslation(['auth', 'common']);
   const context = ContextHolder.getContext();
 
-  const { register, handleSubmit, errors, formState } = useForm({
-    mode: 'onChange',
+  const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(schema),
   });
   const { data, isSuccess, mutate, isError } = useLoginUser();
@@ -46,9 +45,7 @@ export const Login = () => {
       >
         <Label
           title={t('label.email')}
-          error={
-            errors.email && formState.isSubmitted && t('error.invalidEmail')
-          }
+          error={errors.email && t('error.invalidEmail')}
         >
           <Input
             type="email"
@@ -60,11 +57,7 @@ export const Login = () => {
         </Label>
         <Label
           title={t('label.password')}
-          error={
-            errors.password &&
-            formState.isSubmitted &&
-            t('error.required', { field: 'Password' })
-          }
+          error={errors.password && t('error.required', { field: 'Password' })}
         >
           <Input
             type="password"
@@ -75,9 +68,7 @@ export const Login = () => {
           />
         </Label>
         {isError && <Error>{t('error.invalidLogin')}</Error>}
-        <Button type="submit" disabled={!formState.isValid}>
-          {t('button.login')}
-        </Button>
+        <Button type="submit">{t('button.login')}</Button>
         <div className="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
           <Link
             to={context?.routes.forgotPassword}

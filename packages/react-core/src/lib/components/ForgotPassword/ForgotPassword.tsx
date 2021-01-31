@@ -20,8 +20,7 @@ const schema = Joi.object({
 export const ForgotPassword = () => {
   const { t } = useTranslation(['auth', 'common']);
 
-  const { register, handleSubmit, errors, formState } = useForm({
-    mode: 'onChange',
+  const { register, handleSubmit, errors } = useForm({
     resolver: joiResolver(schema),
   });
   const { mutate, isSuccess } = useForgotPassword();
@@ -41,11 +40,7 @@ export const ForgotPassword = () => {
         >
           <Label
             title={t('label.email')}
-            error={
-              errors.email &&
-              formState.isSubmitted &&
-              t('error.required', { field: 'email' })
-            }
+            error={errors.email && t('error.required', { field: 'Email' })}
           >
             <Input
               type="email"
@@ -55,9 +50,7 @@ export const ForgotPassword = () => {
               ref={register}
             />
           </Label>
-          <Button type="submit" disabled={!formState.isValid}>
-            {t('button.remindMe')}
-          </Button>
+          <Button type="submit">{t('button.remindMe')}</Button>
         </form>
       )}
       <div className="mt-5 text-gray-500 text-sm">
