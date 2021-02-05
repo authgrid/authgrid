@@ -1,4 +1,4 @@
-import sgMail from '@sendgrid/mail';
+import { ContextHolder } from '../utils/context.utils';
 
 export const templates = {
   activate: ({ token, userId }) => ({
@@ -11,10 +11,5 @@ export const templates = {
   }),
 };
 
-export const sendMessage = async ({ to, from, subject, html }) =>
-  await sgMail.send({
-    to,
-    from,
-    subject,
-    html,
-  });
+export const sendMessage = async ({ to, subject, html }) =>
+  ContextHolder.getContext().mailer({ to, subject, html });

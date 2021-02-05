@@ -11,9 +11,9 @@ export const withAuthentication = () => async (req, res, next) => {
       req.user = user;
       return next();
     } catch (err) {
-      return res.formatter.unauthorized();
+      return res.sendStatus(401);
     }
   }
 
-  res.formatter.unauthorized();
+  return res.sendStatus(401);
 };

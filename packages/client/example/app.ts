@@ -1,11 +1,14 @@
 import express from 'express';
-import Authgrid from '../lib';
+import AuthGrid, { withAuthentication } from '../lib';
 import { Driver as MongooseDriver } from '../../mongoose-driver/lib';
 import cors from 'cors';
+import sgMail from '@sendgrid/mail';
 
 import mongoose from 'mongoose';
 
 (async () => {
+  sgMail.setApiKey(String(process.env.SENDGRID_API_KEY));
+
   await mongoose.connect(String('mongodb://localhost:27017/authgrid'), {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -26,15 +29,27 @@ import mongoose from 'mongoose';
     res.send('Hello World!');
   });
 
+  const mailer = async ({ to, subject, html }) =>
+    sgMail.send({
+      to,
+      from: 'nirberko@gmail.com',
+      subject,
+      html,
+    });
+
   app.use(
     '/authgrid',
-    Authgrid({
+    AuthGrid({
       driver: MongooseDriver(),
       tokenSecret: String(process.env.TOKEN_SECRET),
       refreshTokenSecret: String(process.env.REFRESH_TOKEN_SECRET),
-      sendGridApiKey: String(process.env.SENDGRID_API_KEY),
+      mailer,
     })
   );
+
+  app.get('/get-user-details', withAuthentication(), (req, res) => {
+    res.json(req.user);
+  });
 
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

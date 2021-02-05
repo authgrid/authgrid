@@ -1,6 +1,6 @@
 import { refreshTokens } from '../utils/token';
 import { IDriver } from '@authgrid/common/interfaces/driver.interfaces';
-import { sendMessage, templates } from '../services/sendgrid';
+import { sendMessage, templates } from '../services/mailer';
 import { encryptPassword } from '../utils/password.utils';
 import { ContextHolder } from '../utils/context.utils';
 
@@ -79,7 +79,6 @@ export const requestResetPassword = async (req, res, next) => {
       });
 
       await sendMessage({
-        from: 'nirberko@gmail.com',
         to: email,
         ...templates.resetPassword({ token }),
       });

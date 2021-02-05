@@ -1,4 +1,4 @@
-import { sendMessage, templates } from '../services/sendgrid';
+import { sendMessage, templates } from '../services/mailer';
 import { ContextHolder } from './context.utils';
 
 export const sendActivationEmail = async ({ email, id }) => {
@@ -10,7 +10,6 @@ export const sendActivationEmail = async ({ email, id }) => {
 
   try {
     await sendMessage({
-      from: 'nirberko@gmail.com',
       to: email,
       ...templates.activate({ token, userId: id }),
     });
