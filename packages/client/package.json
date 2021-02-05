@@ -1,6 +1,6 @@
 {
 	"name": "@authgrid/client",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "> TODO: description",
 	"author": "Nir Berko <nirberko@gmail.com>",
 	"homepage": "",
@@ -35,7 +35,7 @@
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {
-		"@authgrid/common": "^0.1.4",
+		"@authgrid/common": "^0.1.6",
 		"@sendgrid/mail": "^7.4.2",
 		"@types/express": "^4.17.11",
 		"@types/passport": "^1.0.5",
