@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import { ProtectedRoute } from './lib/components/ProtectedRoute/ProtectedRoute';
-import { AuthgridProvider } from './lib';
+import { AuthgridProvider, ProtectedRoute, useAuth } from './lib';
 
 import './lib/i18n';
 
@@ -12,7 +11,11 @@ const context = {
   baseUrl: 'http://localhost:8080',
 };
 
-const Home = () => <div>hello</div>;
+const Home = () => {
+  const { user } = useAuth();
+
+  return <div>{user?.email}</div>;
+};
 
 ReactDOM.render(
   <BrowserRouter>

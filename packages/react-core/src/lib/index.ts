@@ -1,3 +1,4 @@
-import { AuthgridProvider } from './context/AuthgridProvider';
+import { AuthgridProvider, useAuth } from './context/AuthgridProvider';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
-export { AuthgridProvider };
+export { AuthgridProvider, ProtectedRoute, useAuth };
