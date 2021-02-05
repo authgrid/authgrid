@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { AuthgridProvider, ProtectedRoute, useAuth } from './lib';
 
-import './lib/i18n';
-
 import './index.css';
 
 const context = {

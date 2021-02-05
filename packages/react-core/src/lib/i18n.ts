@@ -2,6 +2,8 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
 
+import locales from './locales';
+
 i18n
   .use(initReactI18next)
   .use(Backend)
@@ -14,9 +16,7 @@ i18n
     react: {
       useSuspense: false,
     },
-    backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json',
-    },
+    resources: locales,
   });
 
 export default i18n;
