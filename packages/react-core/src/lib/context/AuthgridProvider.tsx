@@ -5,7 +5,7 @@ import { useRefreshToken } from '../hooks/useRefresshToken';
 import { useGetUser } from '../hooks/useGetUser';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Routes } from '../routes';
-import { IUser } from '../../../../common/interfaces/user.interfaces';
+import { IUser } from '@authgrid/common/interfaces/user.interfaces';
 
 export const AuthgridContext = React.createContext<{
   user: IUser | null;

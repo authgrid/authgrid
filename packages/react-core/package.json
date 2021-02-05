@@ -6,9 +6,9 @@
   "license": "ISC",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
+    "build": "tsc --build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -67,6 +67,7 @@
     ]
   },
   "devDependencies": {
+    "@authgrid/common": "^0.1.7",
     "babel-cli": "^6.26.0",
     "eslint-plugin-react": "^7.22.0"
   }
